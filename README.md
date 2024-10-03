@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# test
+# Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement
 =======
 # Meta-DT
 Experiments require MuJoCo. Follow the instructions in the https://github.com/openai/mujoco-py  to install.
