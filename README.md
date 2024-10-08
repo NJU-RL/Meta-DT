@@ -1,6 +1,6 @@
 # **Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement**
 Zhi Wang, Li Zhang, Wenhao Wu, Yuanheng Zhu, Dongbin Zhao, Chunlin Chen
-A link to our paper can be found on 
+A link to our paper can be found on [OpenReview](https://openreview.net/forum?id=U9MzoDOKZu&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DNeurIPS.cc%2F2024%2FConference%2FAuthors%23your-submissions))
 ## **Overview**
 ![MetaDT](./Meta-DT.jpg)
 ## **Installation**
