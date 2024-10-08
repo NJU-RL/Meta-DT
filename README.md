@@ -15,19 +15,21 @@ pip install -r requirements.txt
 ## **Downloads Datasets and pretrained world model**
  - We share our datasets via this [Google Drive link]()
  - We share our pretrained world model via this [Google Drive link]()
-'''
-TODO
-'''
-## **Run Experiments**
 ```
-# Train the context encoder using world model 
+TODO
+```
+## **Run Experiments**
+Train the context encoder using world model 
+```
+python train_context.py --env_name AntDir-v0` 
+```
 
-run `python train_context.py --env_name AntDir-v0` to train a context encoder and a world model decoder
-
-# The Meta Decision Transformer (DT) algorithm
+Train Tthe Meta Decision Transformer
 (i) for few_shot Meta-DT
- run `python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality medium` to train the meta-DT algorithm using the pretrained context encoder, the `return/test tasks` in the tensorboard is the few-shot/zero-shot performance on the 5 unseen tasks during testing.
-
+```
+python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality medium` 
+```
 (ii) for zero_shot Meta-DT
+```
 run `python train_meta_dt.py --env_name AntDir-v0 --zero_shot True --data_quality medium`
 ```
