@@ -136,20 +136,6 @@ if ((env_type=='walker_para')or(env_type=='hopper')):
 else:
     context_encoder = RNNContextEncoder(state_dim, action_dim, args.context_dim, args.context_hidden_dim).to(device)
     dynamic_decoder = RewardDecoder(state_dim, action_dim, args.context_dim, args.context_hidden_dim).to(device)
-# if env_type=='cheetah_vel':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type == 'point_robot':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type == 'ant_dir':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type == 'walker_para':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type == 'reach':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type =='cheetah_dir':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
-# elif env_type =='hopper':
-#     load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
 load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
 context_encoder.load_state_dict(torch.load(load_path)['context_encoder'])
 if ((env_type=='walker_para')or(env_type=='hopper')):
@@ -438,8 +424,7 @@ while global_step<= args.max_step:
                     selected_index = np.random.choice(indices, p=error_probs)
 
                     si = selected_index
-                    # si = random.randint(0, traj['rewards'].shape[0] - 1)
-                    # si = max(0, traj['rewards'].shape[0] - max_len -1)
+                    
                 
 
                     # get sequences from dataset
