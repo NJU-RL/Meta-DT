@@ -21,14 +21,14 @@ TODO
 ## **Run Experiments**
 Train the context encoder using world model 
 ```
-python train_context.py --env_name AntDir-v0` 
+python train_context.py --env_name AntDir-v0
 ```
 
 Train the Meta Decision Transformer for few_shot Meta-DT
 ```
-python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality medium` 
+python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality medium 
 ```
 Train the Meta Decision Transformer for zero_shot Meta-DT
 ```
-python train_meta_dt.py --env_name AntDir-v0 --zero_shot True --data_quality medium`
+python train_meta_dt.py --env_name AntDir-v0 --zero_shot True --data_quality medium
 ```
