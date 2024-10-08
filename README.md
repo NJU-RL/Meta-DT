@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 # Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement
+
 =======
 # Meta-DT
 Experiments require MuJoCo. Follow the instructions in the https://github.com/openai/mujoco-py  to install.
@@ -20,11 +20,3 @@ run `python train_context.py --env_name AntDir-v0` to train a context encoder an
  run `python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality medium` to train the meta-DT algorithm using the pretrained context encoder, the `return/test tasks` in the tensorboard is the few-shot/zero-shot performance on the 5 unseen tasks during testing.
 (ii) for zero_shot Meta-DT
 run `python train_meta_dt.py --env_name AntDir-v0 --zero_shot True --data_quality medium`
-
-
-
-
-
-
-
->>>>>>> f632c32 (init)
