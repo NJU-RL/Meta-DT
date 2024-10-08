@@ -1,13 +1,17 @@
-# Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement
+# **Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement**
 Zhi Wang, Li Zhang, Wenhao Wu, Yuanheng Zhu, Dongbin Zhao, Chunlin Chen
 A link to our paper can be found on 
-## Overview
+## **Overview**
 ![MetaDT](./Meta-DT.jpg)
-## Meta-DT
+## **Installation**
 Experiments require MuJoCo. Follow the instructions in the https://github.com/openai/mujoco-py  to install.
-Create the virtual environment using `conda env create -f environment.yaml`.
-conda activate your_env
+Create the virtual environment using 
+See `requirments.txt` file for more information about how to install the dependencies.
+```python
+conda create -n meta_dt python=3.8.18 -y
+conda activate meta_dt
 pip install -r requirements.txt
+```
 ## Data collection 
 
 
