@@ -4,7 +4,7 @@ A link to our paper can be found on [OpenReview](https://openreview.net/forum?id
 ## **Overview**
 ![MetaDT](./Meta-DT.jpg)
 ## **Installation**
-Experiments require MuJoCo and D4RL. Follow the instructions in the [[MuJoCo]](https://github.com/openai/mujoco-py)[D4RL]](https://github.com/Farama-Foundation/D4RL)to install.
+Experiments require MuJoCo and D4RL. Follow the instructions in the [[MuJoCo]](https://github.com/openai/mujoco-py)[[D4RL]](https://github.com/Farama-Foundation/D4RL)to install.
 Create the virtual environment using 
 See `requirments.txt` file for more information about how to install the dependencies.
 ```python
