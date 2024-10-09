@@ -4,7 +4,7 @@ A link to our paper can be found on [OpenReview](https://openreview.net/forum?id
 ## **Overview**
 ![MetaDT](./Meta-DT.jpg)
 ## **Installation**
-Experiments require MuJoCo. Follow the instructions in the https://github.com/openai/mujoco-py  to install.
+Experiments require MuJoCo and D4RL. Follow the instructions in the [MuJoCo](https://github.com/openai/mujoco-py)[D4RL](https://github.com/Farama-Foundation/D4RL)to install.
 Create the virtual environment using 
 See `requirments.txt` file for more information about how to install the dependencies.
 ```python
@@ -13,7 +13,7 @@ conda activate meta_dt
 pip install -r requirements.txt
 ```
 ## **Downloads Datasets and pretrained world model**
- - We share our datasets via this [Google Drive link]()
+ - We share our datasets via this [datasets](https://drive.google.com/file/d/1hCVfXOpyBSQv9SRRHgHtq3W4EPVYSY0Z/view?usp=drive_link)
  - We share our pretrained world model via this [Google Drive link]()
 ```
 TODO

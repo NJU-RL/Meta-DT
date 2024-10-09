@@ -29,7 +29,7 @@ import random
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--env_type', type=str, default='point_robot')
+parser.add_argument('--env_type', type=str, default='walker_para')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--context_horizon', type=int, default=4)
 args, rest_args = parser.parse_known_args()

@@ -84,6 +84,7 @@ def get_args(rest_args):
     parser.add_argument('--max_train_eposides', type=int, default=100)
     parser.add_argument("--pdt", type=bool, default=False)
     parser.add_argument('--warm_train', type=int, default=20000)
+    parser.add_argument("--zero_shot", type=bool, default=False)
     parser.add_argument("--meta_dt_few", type=bool, default=True)
     parser.add_argument('--total_epi', type=int, default=100)
     args = parser.parse_args(rest_args)

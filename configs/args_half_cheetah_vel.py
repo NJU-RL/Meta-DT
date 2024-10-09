@@ -4,8 +4,8 @@ def get_args(rest_args):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--env_name', default="HalfCheetahVel-v0")
-    parser.add_argument('--data_quality', default="ood")
-    parser.add_argument('--seed', type=int, default=666, metavar='N', help='random seed (default: 123456)')
+    parser.add_argument('--data_quality', default="medium")
+    parser.add_argument('--seed', type=int, default=3407, metavar='N', help='random seed (default: 123456)')
     parser.add_argument('--max_episode_steps', type=int, default=200)
     parser.add_argument('--num_eval_episodes', type=int, default=5)
 
@@ -82,6 +82,7 @@ def get_args(rest_args):
     parser.add_argument('--device', type=str, default='cuda')
     parser.add_argument('--max_train_eposides', type=int, default=100)
     parser.add_argument("--pdt", type=bool, default=False)
+    parser.add_argument("--zero_shot", type=bool, default=False)
     parser.add_argument('--warm_train', type=int, default=20000)
     parser.add_argument("--meta_dt_few", type=bool, default=True)
     parser.add_argument('--total_epi', type=int, default=100)
