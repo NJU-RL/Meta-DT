@@ -14,10 +14,7 @@ pip install -r requirements.txt
 ```
 ## **Downloads Datasets and pretrained world model**
  - We share our datasets via this [datasets](https://drive.google.com/file/d/1hCVfXOpyBSQv9SRRHgHtq3W4EPVYSY0Z/view?usp=drive_link)
- - We share our pretrained world model via this [Google Drive link]()
-```
-TODO
-```
+ - We share our pretrained world model via this [world_model](https://drive.google.com/file/d/1HdNOpMooftr9jVn4vwqS005OIsbdgToX/view?usp=drive_link)
 ## **Run Experiments**
 Train the context encoder using world model 
 ```
