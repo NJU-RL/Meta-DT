@@ -1,17 +1,22 @@
 # **Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement**
-Zhi Wang, Li Zhang, Wenhao Wu, Yuanheng Zhu, Dongbin Zhao, Chunlin Chen
-A link to our paper can be found on [OpenReview](https://openreview.net/forum?id=U9MzoDOKZu&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DNeurIPS.cc%2F2024%2FConference%2FAuthors%23your-submissions))
+Zhi Wang, Li Zhang, Wenhao Wu, Yuanheng Zhu, Dongbin Zhao, Chunlin Chen*
+
+A link to our paper can be found on [arXiv]()
+
 ## **Overview**
+Official codebase for Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement
+
 ![MetaDT](./Meta-DT.jpg)
+
 ## **Installation**
-Experiments require MuJoCo and D4RL. Follow the instructions in the [[MuJoCo]](https://github.com/openai/mujoco-py)[[D4RL]](https://github.com/Farama-Foundation/D4RL)to install.
-Create the virtual environment using 
-See `requirments.txt` file for more information about how to install the dependencies.
+Experiments require MuJoCo and D4RL. Follow the instructions in the [[MuJoCo]](https://github.com/openai/mujoco-py)[[D4RL]](https://github.com/Farama-Foundation/D4RL) to install.
+Create a virtual environment using conda, and see `requirments.txt` file for more information about how to install the dependencies.
 ```python
 conda create -n meta_dt python=3.8.18 -y
 conda activate meta_dt
 pip install -r requirements.txt
 ```
+
 ## **Downloads Datasets and pretrained world model**
  - We share our datasets via this [datasets](https://drive.google.com/file/d/1hCVfXOpyBSQv9SRRHgHtq3W4EPVYSY0Z/view?usp=drive_link)
  - We share our pretrained world model via this [world_model](https://drive.google.com/file/d/1HdNOpMooftr9jVn4vwqS005OIsbdgToX/view?usp=drive_link)
@@ -28,4 +33,17 @@ python train_meta_dt.py --env_name AntDir-v0 --zero_shot False --data_quality me
 Train the Meta Decision Transformer for zero_shot Meta-DT
 ```
 python train_meta_dt.py --env_name AntDir-v0 --zero_shot True --data_quality medium
+```
+
+## **Citation**
+
+Please cite our paper as:
+```tex
+@inproceedings{
+wang2024metadt,
+title={Meta-DT: Offline Meta-RL as Conditional Sequence Modeling with World Model Disentanglement},
+author={hi Wang and Li Zhang and Wenhao Wu and Yuanheng Zhu and Dongbin Zhao and Chunlin Chen},
+booktitle={Advances in Neural Information Processing Systems},
+year={2024},
+}
 ```
