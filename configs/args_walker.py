@@ -4,7 +4,7 @@ def get_args(rest_args):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--env_name', default="WalkerRandParams-v0")
-    parser.add_argument('--data_quality', default="medium-expert")
+    parser.add_argument('--data_quality', default="medium")
     parser.add_argument('--seed', type=int, default=412, metavar='N', help='random seed (default: 123456)')
     parser.add_argument('--max_episode_steps', type=int, default=200)
     parser.add_argument('--num_eval_episodes', type=int, default=5)
@@ -31,31 +31,6 @@ def get_args(rest_args):
     parser.add_argument('--context_lr', type=float, default=0.001)
     parser.add_argument('--num_train_tasks', type=int, default=45)
 
-    ### for training meta-sac
-    parser.add_argument('--meta_train_epochs', type=int, default=100)
-    parser.add_argument('--meta_batch_size', type=int, default=128)
-    parser.add_argument('--meta_hidden_dim', type=int, default=128)
-    parser.add_argument('--meta_lr', type=float, default=0.001)
-
-    ### for diffusion Q-learning, single-task
-    parser.add_argument("--diff_batch_size", default=128, type=int)
-    parser.add_argument("--diff_lr_decay", type=bool, default=True)
-    parser.add_argument("--discount", default=0.99, type=float)
-    parser.add_argument("--T", default=5, type=int)
-    parser.add_argument("--beta_schedule", default='vp', type=str)
-    parser.add_argument('--diff_num_epochs', type=int, default=5000)
-    parser.add_argument('--diff_lr', type=float, default=3e-4)
-    parser.add_argument('--eta', type=float, default=1.)
-    parser.add_argument('--max_q_backup', type=bool, default=False)
-    parser.add_argument('--gn', type=float, default=5.)
-    parser.add_argument('--q_clip', type=float, default=10.)
-    parser.add_argument('--diff_hidden_dim', type=int, default=256)
-
-    ### for meta-diffusion Q-learning
-    parser.add_argument("--meta_diff_batch_size", default=512, type=int)
-    parser.add_argument('--meta_diff_num_epochs', type=int, default=500)
-
-    ### for decision transformer
     parser.add_argument('--dt_batch_size', default=32, type=int)
     parser.add_argument('--dt_horizon', type=int, default=8)
     parser.add_argument('--dt_embed_dim', type=int, default=128)
@@ -83,7 +58,6 @@ def get_args(rest_args):
     parser.add_argument('--device', type=str, default='cuda')
     parser.add_argument('--max_train_eposides', type=int, default=100)
     parser.add_argument("--pdt", type=bool, default=False)
-    parser.add_argument("--zero_shot", type=bool, default=False)
     parser.add_argument('--warm_train', type=int, default=20000)
     parser.add_argument("--meta_dt_few", type=bool, default=True)
     parser.add_argument('--total_epi', type=int, default=100)

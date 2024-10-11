@@ -4,7 +4,7 @@ def get_args(rest_args):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--env_name', default="HopperRandParams-v0")
-    parser.add_argument('--data_quality', default="medium-expert")
+    parser.add_argument('--data_quality', default="medium")
     parser.add_argument('--seed', type=int, default=412, metavar='N', help='random seed (default: 123456)')
     parser.add_argument('--max_episode_steps', type=int, default=200)
     parser.add_argument('--num_eval_episodes', type=int, default=5)

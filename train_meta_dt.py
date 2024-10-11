@@ -16,20 +16,19 @@ import json
 from collections import OrderedDict
 from torch.utils.tensorboard import SummaryWriter
 
-from configs import args_point_robot,args_half_cheetah_vel,args_ant_dir,args_walker_para,args_meta_world,args_half_cheetah_dir,args_hopper
-import environments 
+from configs import args_point_robot, args_half_cheetah_vel, args_half_cheetah_dir, args_ant_dir, args_walker, args_hopper, args_reach
 from meta_dt.trainer import MetaDT_Trainer
 from meta_dt.model import MetaDecisionTransformer
 from meta_dt.dataset import MetaDT_Dataset, append_context_to_data,append_error_to_trajectory
 from meta_dt.evaluation import meta_evaluate_episode_rtg
 from decision_transformer.dataset import convert_data_to_trajectories,discount_cumsum
-from context.model import RNNContextEncoder ,RewardDecoder,GeneralEncoder,StateDecoder
-from src.envs import  HalfCheetahVelEnv,AntDirEnv,WalkerRandParamsWrappedEnv,HalfCheetahDirEnv,ReachEnv,HopperRandParamsEnv
+from context.model import RNNContextEncoder, RewardDecoder, GeneralEncoder, StateDecoder
+from src.envs import PointEnv, HalfCheetahVelEnv, HalfCheetahDirEnv, AntDirEnv, HopperRandParamsEnv, WalkerRandParamsWrappedEnv, ReachEnv
 import random
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--env_type', type=str, default='walker_para')
+parser.add_argument('--env_type', type=str, default='walker')
 parser.add_argument('--device', type=str, default='cuda:0')
 parser.add_argument('--context_horizon', type=int, default=4)
 args, rest_args = parser.parse_known_args()
@@ -46,11 +45,11 @@ elif  env_type == 'cheetah_vel':
 elif  env_type == 'ant_dir':
     args = args_ant_dir.get_args(rest_args)
     args.context_horizon = context_horizon
-elif  env_type == 'walker_para':
-    args = args_walker_para.get_args(rest_args)
+elif  env_type == 'walker':
+    args = args_walker.get_args(rest_args)
     args.context_horizon = context_horizon
 elif  env_type == 'reach':
-    args = args_meta_world.get_args(rest_args)
+    args = args_reach.get_args(rest_args)
     args.context_horizon = context_horizon
 elif  env_type == 'cheetah_dir':
     args = args_half_cheetah_dir.get_args(rest_args)
@@ -70,7 +69,7 @@ np.set_printoptions(precision=3, suppress=True)
 
 # make env, multi-task setting
 if env_type == 'point_robot':
-    env = gym.make(args.env_name)
+    env = PointEnv(max_episode_steps=args.max_episode_steps, num_tasks=args.num_tasks)
     env.seed(args.seed)
     env.load_all_tasks(np.load(f'./datasets/{args.env_name}/{args.data_quality}/task_goals.npy'))
 elif env_type =='cheetah_vel':
@@ -88,7 +87,7 @@ elif env_type=='ant_dir':
 
     # tasks = [{'goal': velocity} for velocity in velocities]
     env=AntDirEnv(tasks=velocities)
-elif env_type=='walker_para':
+elif env_type=='walker':
     with open(f'./datasets/{args.env_name}/{args.data_quality}/task_goals.pkl', 'rb') as file:
         goals = pickle.load(file)
     
@@ -130,7 +129,7 @@ for ind in range(args.num_tasks):
 # print(f'Number of training samples: {num_samples}')
 
 ### load the pretrained context encoder 
-if ((env_type=='walker_para')or(env_type=='hopper')):
+if ((env_type=='walker')or(env_type=='hopper')):
     context_encoder = RNNContextEncoder(state_dim, action_dim, args.context_dim, args.context_hidden_dim).to(device)
     dynamic_decoder = StateDecoder(state_dim, action_dim, args.context_dim, args.context_hidden_dim).to(device)
 else:
@@ -138,7 +137,7 @@ else:
     dynamic_decoder = RewardDecoder(state_dim, action_dim, args.context_dim, args.context_hidden_dim).to(device)
 load_path = f'./saves/{args.env_name}/context/{args.data_quality}/horizon{args.context_horizon}/context_models_best.pt'
 context_encoder.load_state_dict(torch.load(load_path)['context_encoder'])
-if ((env_type=='walker_para')or(env_type=='hopper')):
+if ((env_type=='walker')or(env_type=='hopper')):
     dynamic_decoder.load_state_dict(torch.load(load_path)['state_decoder'])
 else:
     dynamic_decoder.load_state_dict(torch.load(load_path)['reward_decoder'])

@@ -1,17 +1,17 @@
 import argparse
 import gym
-# import environments
 import json
 import pickle
 import torch
 import numpy as np
 
-from configs import args_point_robot, args_half_cheetah_vel, args_ant_dir, args_walker, args_reach, args_hopper
 from collections import OrderedDict
-from data_collection.sac import SAC
-from data_collection.replay_memory import ReplayMemory
 from pathlib import Path
-from src.envs import HalfCheetahVelEnv, AntDirEnv, PointEnv, WalkerRandParamsWrappedEnv, ReachEnv, HopperRandParamsEnv, HalfCheetahDirEnv
+
+from configs import args_point_robot, args_half_cheetah_vel, args_half_cheetah_dir, args_ant_dir, args_hopper, args_walker, args_reach
+from data_collection.replay_memory import ReplayMemory
+from data_collection.sac import SAC
+from src.envs import PointEnv, HalfCheetahVelEnv, HalfCheetahDirEnv, AntDirEnv, HopperRandParamsEnv, WalkerRandParamsWrappedEnv, ReachEnv
 
 
 def set_seed(seed, env):
@@ -23,15 +23,14 @@ def set_seed(seed, env):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--env-type', type=str, default='point_robot', help='environment')
-parser.add_argument('--data-type', type=str, default='medium')
-parser.add_argument('--cuda', type=int, default=0)
+parser.add_argument('--env_type', type=str, default='point_robot', help='environment')
+parser.add_argument('--data_type', type=str, default='medium')
+parser.add_argument('--device', type=str, default="cuda:0")
 parser.add_argument('--seed', type=int, default=123456)
-parser.add_argument('--noise-std', type=float, default=0.08)
-parser.add_argument('--split-idx', type=int, default=0)
-parser.add_argument('--split-step', type=int, default=10)
+parser.add_argument('--task_id_start', type=int, default=0)
+parser.add_argument('--task_id_end', type=int, default=10)
 parser.add_argument('--suffix', type=int, default=2000, help='model checkpoint suffix')
-parser.add_argument('--capacity', type=int, default=150000, help='total timesteps')
+parser.add_argument('--capacity', type=int, default=2000, help='total timesteps')
 local_args, rest_args = parser.parse_known_args()
 
 # download config
@@ -57,7 +56,7 @@ elif local_args.env_type =='ant_dir':
     env = AntDirEnv(tasks=tasks)
 elif local_args.env_type == 'walker':
     args = vars(args_walker.get_args(rest_args))
-    with open('./datasets/WalkerParameters-v0/task_goals.pkl', 'rb') as fp:
+    with open('./datasets/WalkerRandParams-v0/task_goals.pkl', 'rb') as fp:
         tasks = pickle.load(fp)
     env = WalkerRandParamsWrappedEnv(tasks=tasks)
 elif local_args.env_type == 'hopper':
@@ -72,7 +71,7 @@ elif local_args.env_type == 'reach':
     env = ReachEnv(tasks=tasks)
 else:
     raise NotImplementedError
-args['device'] = torch.device('cuda', index=local_args.cuda) if torch.cuda.is_available() else torch.device('cpu')
+args['device'] = torch.device('cuda', index=local_args.device) if torch.cuda.is_available() else torch.device('cpu')
 args['save_path'] = Path(f"./datasets/{args['env_name']}/{local_args.data_type}")
 args['save_path'].mkdir(parents=True, exist_ok=True)
 
@@ -129,8 +128,7 @@ else:
     local_args.suffix = [local_args.suffix] * args['num_tasks']
 print(local_args.suffix)
 
-evaluate = False if local_args.env_type == 'point_robot' else True
-for task_id in range(local_args.split_idx, local_args.split_idx + local_args.split_step):
+for task_id in range(local_args.task_id_start, local_args.task_id_end):
     model_path = f"./datasets/{args['env_name']}/checkpoints/task_{task_id}/agent_{local_args.suffix[task_id]}.pt"
     agent = SAC(env, args['hidden_dim'], args['alpha'], args['lr'], args['gamma'], args['tau'], args['device'])
     agent.load(model_path)
@@ -144,7 +142,7 @@ for task_id in range(local_args.split_idx, local_args.split_idx + local_args.spl
         episode_return = 0.
         state = env.reset()
         for step in range(args['max_episode_steps']):
-            action = agent.select_action(state, evaluate)
+            action = agent.select_action(state, False)
             action = np.clip(action, action_min, action_max)
             next_state, reward, done, _ = env.step(action)
             mask = True if (step == args['max_episode_steps'] - 1) else (not done)
