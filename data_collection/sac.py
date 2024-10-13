@@ -93,11 +93,17 @@ class SAC(object):
 
         return qf1_loss.item(), qf2_loss.item(), policy_loss.item()
     
-
-
-
-
-
-
-
-
+    def save(self, path):
+        torch.save(
+            {
+                'critic': self.critic.state_dict(),
+                'policy': self.policy.state_dict(),
+            },
+            path
+        )
+   
+    def load(self, path):
+        ckp = torch.load(path, map_location=self.device)
+        self.critic.load_state_dict(ckp['critic'])
+        self.critic_target.load_state_dict(ckp['critic'])
+        self.policy.load_state_dict(ckp['policy'])

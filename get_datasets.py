@@ -28,7 +28,7 @@ parser.add_argument('--data_type', type=str, default='medium')
 parser.add_argument('--device', type=str, default="cuda:0")
 parser.add_argument('--seed', type=int, default=123456)
 parser.add_argument('--task_id_start', type=int, default=0)
-parser.add_argument('--task_id_end', type=int, default=10)
+parser.add_argument('--task_id_end', type=int, default=5)
 parser.add_argument('--suffix', type=int, default=2000, help='model checkpoint suffix')
 parser.add_argument('--capacity', type=int, default=2000, help='total timesteps')
 local_args, rest_args = parser.parse_known_args()
@@ -71,7 +71,7 @@ elif local_args.env_type == 'reach':
     env = ReachEnv(tasks=tasks)
 else:
     raise NotImplementedError
-args['device'] = torch.device('cuda', index=local_args.device) if torch.cuda.is_available() else torch.device('cpu')
+args['device'] = torch.device(local_args.device) if torch.cuda.is_available() else torch.device('cpu')
 args['save_path'] = Path(f"./datasets/{args['env_name']}/{local_args.data_type}")
 args['save_path'].mkdir(parents=True, exist_ok=True)
 
@@ -165,26 +165,26 @@ for task_id in range(local_args.task_id_start, local_args.task_id_end):
             'goal': list(env.goals[task_id].tolist()),
             'return_scale': [min(episode_returns), max(episode_returns)]
         }
-        with open(args['save_path'] / f'task_info_{local_args.split_idx}.json', 'w') as fp:
+        with open(args['save_path'] / f'task_info_{local_args.task_id_start}.json', 'w') as fp:
             json.dump(task_info, fp, indent=4)
     elif local_args.env_type in ['walker', 'hopper']:
         task_info[f"task {task_id}"] = {key: item.tolist() for key, item in env.tasks[task_id].items()}
         task_info[f"task {task_id}"].update({'return_scale': [min(episode_returns), max(episode_returns)]})
-        with open(args['save_path'] / f'task_info_{local_args.split_idx}.json', 'w') as fp:
+        with open(args['save_path'] / f'task_info_{local_args.task_id_start}.json', 'w') as fp:
             json.dump(task_info, fp, indent=4)
         return_scale_info[f"task {task_id}"] = {'return_scale': [min(episode_returns), max(episode_returns)]}
-        with open(args['save_path'] / f"return_scale_info_{local_args.split_idx}.json", 'w') as fp:
+        with open(args['save_path'] / f"return_scale_info_{local_args.task_id_start}.json", 'w') as fp:
             json.dump(return_scale_info, fp, indent=4)
     elif local_args.env_type == 'reach':
         task_info[f"task {task_id}"] = {
             'return_scale': [min(episode_returns), max(episode_returns)]
         }
-        with open(args['save_path'] / f'task_info_{local_args.split_idx}.json', 'w') as fp:
+        with open(args['save_path'] / f'task_info_{local_args.task_id_start}.json', 'w') as fp:
             json.dump(task_info, fp, indent=4)
     else:
         task_info[f"task {task_id}"] = {
             'goal': list(env.tasks[task_id].values()),
             'return_scale': [min(episode_returns), max(episode_returns)]
         }
-        with open(args['save_path'] / f'task_info_{local_args.split_idx}.json', 'w') as fp:
+        with open(args['save_path'] / f'task_info_{local_args.task_id_start}.json', 'w') as fp:
             json.dump(task_info, fp, indent=4)

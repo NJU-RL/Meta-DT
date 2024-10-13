@@ -16,9 +16,9 @@ def get_args(rest_args):
     parser.add_argument('--lr', type=float, default=0.0003, metavar='G', help='learning rate (default: 0.0003)')
     parser.add_argument('--alpha', type=float, default=0.2, metavar='G', help='Temperature parameter α determines the relative importance of the entropy term against the reward (default: 0.2)')
     parser.add_argument('--batch_size', type=int, default=256, metavar='N', help='batch size (default: 256)')
-    parser.add_argument('--num_steps', type=int, default=50000, metavar='N', help='maximum number of steps (default: 2000)')
+    parser.add_argument('--num_steps', type=int, default=500000, metavar='N', help='maximum number of steps (default: 2000)')
     parser.add_argument('--hidden_dim', type=int, default=128, metavar='N', help='hidden size (default: 256)')
-    parser.add_argument('--start_steps', type=int, default=100, metavar='N', help='Steps sampling random actions (default: 10000)')
+    parser.add_argument('--start_steps', type=int, default=10000, metavar='N', help='Steps sampling random actions (default: 10000)')
     parser.add_argument('--replay_size', type=int, default=10000, metavar='N', help='size of replay buffer (default: 10000000)')
     
     ### for the context encoder and reward/transition decoder
