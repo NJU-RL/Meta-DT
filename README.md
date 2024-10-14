@@ -40,8 +40,8 @@ After obtaining datasets of all tasks, we should manually merge all ```task_info
 For ```medium-expert``` datasets, we use a mix of 70% ```medium``` and 30% ```expert``` datasets.
 
 ## **Downloads Datasets and pretrained world model**
- - We share our datasets via this [datasets](https://drive.google.com/file/d/1hCVfXOpyBSQv9SRRHgHtq3W4EPVYSY0Z/view?usp=drive_link)
- - We share our pretrained world model via this [world_model](https://drive.google.com/file/d/1HdNOpMooftr9jVn4vwqS005OIsbdgToX/view?usp=drive_link)
+ - We share our datasets via this [datasets](https://drive.google.com/file/d/1msndM9eVQ9KI6TGRNBgAaOm6I0jSoW8V/view?usp=drive_link)
+ - We share our pretrained world model via this [world_model](https://drive.google.com/file/d/1su9Uv_l3PmKWprAMMd2fBVe0rBC3F9f-/view?usp=drive_link)
 ## **Run Experiments**
 Train the context encoder using world model 
 ```shell
