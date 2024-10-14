@@ -62,7 +62,7 @@ def get_args(rest_args):
     parser.add_argument('--dt_n_head', type=int, default=1)
     parser.add_argument('--dt_activation_function', type=str, default='relu')
     parser.add_argument('--dt_dropout', type=float, default=0.1)
-    parser.add_argument('--dt_lr', type=float, default=3e-6)
+    parser.add_argument('--dt_lr', type=float, default=1e-7)
     parser.add_argument('--dt_weight_decay', type=float, default=1e-4)
     parser.add_argument('--dt_warmup_steps', type=int, default=1000)
     parser.add_argument('--dt_num_epochs', type=int, default=100)
